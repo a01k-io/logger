@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/disgoorg/dislog"
-	"github.com/disgoorg/snowflake"
+	"github.com/disgoorg/snowflake/v2"
 	"github.com/sirupsen/logrus"
 )
 
@@ -42,23 +42,32 @@ type Wrapper struct {
 
 func New(service string) *Wrapper {
 	log := &Wrapper{lg: logrus.New()}
-	dlog, err := dislog.New(
-		// Sets which logging levels to send to the webhook
-		dislog.WithLogLevels(dislog.TraceLevelAndAbove...),
-		// Sets webhook id & token
-		dislog.WithWebhookIDToken(snowflake.Snowflake(os.Getenv("LOG_SNOWFLAKE")), os.Getenv("LOG_HOOK")),
-	)
-	if err != nil {
-		log.Errorf("Failed to initialize dislog: %s", err)
+
+	if _, ok := os.LookupEnv("ENABLE_DISCORD_LOG"); ok {
+
+		id, ok := snowflake.LookupEnv("LOG_SNOWFLAKE")
+		if !ok {
+			log.Fatal("cant get LOG_SNOWFLAKE variable")
+		}
+		dlog, err := dislog.New(
+			// Sets which logging levels to send to the webhook
+			dislog.WithLogLevels(dislog.TraceLevelAndAbove...),
+			// Sets webhook id & token
+			dislog.WithWebhookIDToken(id, os.Getenv("LOG_HOOK")),
+		)
+		if err != nil {
+			log.Errorf("Failed to initialize dislog: %s", err)
+		}
+		defer dlog.Close(context.Background())
+		log.lg.AddHook(dlog)
 	}
+
 	log.lg.SetFormatter(&logrus.JSONFormatter{})
 	log.lg.SetOutput(os.Stdout)
 	log.lg.SetLevel(logrus.DebugLevel)
 	log.entry = log.lg.WithFields(logrus.Fields{
 		"service": service,
 	})
-	defer dlog.Close(context.Background())
-	log.lg.AddHook(dlog)
 	return log
 }
 

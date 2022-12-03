@@ -7,8 +7,6 @@ github.com/disgoorg/dislog v1.0.7 h1:rEmLHsl2Fyqml/Zf6NZZeHROtEkBva8sK5BXBVV/d2w
 github.com/disgoorg/dislog v1.0.7/go.mod h1:YjgEyRIbGBPCVbvdBDgDplKdy7rl4ETVYEbVX2grs94=
 github.com/disgoorg/log v1.2.0 h1:sqlXnu/ZKAlIlHV9IO+dbMto7/hCQ474vlIdMWk8QKo=
 github.com/disgoorg/log v1.2.0/go.mod h1:3x1KDG6DI1CE2pDwi3qlwT3wlXpeHW/5rVay+1qDqOo=
-github.com/disgoorg/snowflake v1.1.0 h1:uVF9QqI31uqo0kzbZahwvjaYQxn40SUfFK5pCNzfjYQ=
-github.com/disgoorg/snowflake v1.1.0/go.mod h1:wUUTKWS1jSV0gIb3TSPsdJORNF8BcjKTjVeyrULEhr8=
 github.com/disgoorg/snowflake/v2 v2.0.1 h1:CuUxGLwggUxEswZOmZ+mZ5i0xSumQdXW9tXW7uGqe+0=
 github.com/disgoorg/snowflake/v2 v2.0.1/go.mod h1:SPU9c2CNn5DSyb86QcKtdZgix9osEtKrHLW4rMhfLCs=
 github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
